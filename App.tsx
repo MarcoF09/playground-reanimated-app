@@ -7,7 +7,11 @@
  *
  * @format
  */
-
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+} from 'react-native-reanimated';
 import React from 'react';
 import {
   SafeAreaView,
@@ -16,6 +20,7 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
 
 import {
@@ -27,6 +32,28 @@ import {
 } from 'react-native/Libraries/NewAppScreen';
 
 declare const global: {HermesInternal: null | {}};
+
+function Box() {
+  const offset = useSharedValue(0);
+
+  const animatedStyles = useAnimatedStyle(() => {
+    return {
+      transform: [{translateX: offset.value * 255}],
+    };
+  });
+
+  return (
+    <>
+      <Animated.View style={[styles.box, animatedStyles]} />
+      <Button
+        onPress={() => {
+          offset.value = withSpring(Math.random());
+        }}
+        title="Move"
+      />
+    </>
+  );
+}
 
 const App = () => {
   return (
@@ -46,8 +73,8 @@ const App = () => {
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Step One</Text>
               <Text style={styles.sectionDescription}>
-                Edit <Text style={styles.highlight}>App.tsx</Text> to change this
-                screen and then come back to see your edits.
+                Edit <Text style={styles.highlight}>App.tsx</Text> to change
+                this screen and then come back to see your edits.
               </Text>
             </View>
             <View style={styles.sectionContainer}>
@@ -77,6 +104,14 @@ const App = () => {
 };
 
 const styles = StyleSheet.create({
+  box: {
+    width: 50,
+    height: 50,
+    borderColor: '#F5FCFF',
+    alignSelf: 'center',
+    backgroundColor: 'plum',
+    margin: 50 / 2,
+  },
   scrollView: {
     backgroundColor: Colors.lighter,
   },
