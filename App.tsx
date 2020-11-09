@@ -23,16 +23,6 @@ import {
   Button,
 } from 'react-native';
 
-import {
-  Header,
-  LearnMoreLinks,
-  Colors,
-  DebugInstructions,
-  ReloadInstructions,
-} from 'react-native/Libraries/NewAppScreen';
-
-declare const global: {HermesInternal: null | {}};
-
 function Box() {
   const offset = useSharedValue(0);
 
@@ -75,7 +65,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'blue',
     margin: 50 / 2,
   },
-  container: {flex: 1, justifyContent: 'center'}
+  container: {flex: 1, justifyContent: 'center'},
 });
 
 export default App;
