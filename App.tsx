@@ -1,71 +1,51 @@
-/**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
- * Generated with the TypeScript template
- * https://github.com/react-native-community/react-native-template-typescript
- *
- * @format
- */
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated';
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  Text,
-  StatusBar,
-  Button,
-} from 'react-native';
+import {StyleSheet, ScrollView, View, Text, FlatList} from 'react-native';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+import {RectButton} from 'react-native-gesture-handler';
+import {HomeScreen} from './src/scenes/HomeScreen';
+import {MainScreen} from './src/scenes/MainScreen';
 
-function Box() {
-  const offset = useSharedValue(0);
+export const SCREENS = {
+  Home: {
+    screen: HomeScreen,
+    title: '🆕 Home',
+  },
+};
 
-  const animatedStyles = useAnimatedStyle(() => {
-    return {
-      transform: [{translateX: offset.value * 255}],
-    };
-  });
-
-  return (
-    <>
-      <Animated.View style={[styles.box, animatedStyles]} />
-      <Button
-        onPress={() => {
-          offset.value = withSpring(Math.random());
-        }}
-        title="Move"
-      />
-    </>
-  );
-}
+const Stack = createStackNavigator();
 
 const App = () => {
   return (
-    <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView style={styles.container}>
-        <Box />
-      </SafeAreaView>
-    </>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Main">
+        <Stack.Screen name="Main" component={MainScreen} />
+        <Stack.Screen name="Home" component={HomeScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
 const styles = StyleSheet.create({
-  box: {
-    width: 50,
-    height: 50,
-    borderColor: '#F5FCFF',
-    borderRadius: 10,
-    backgroundColor: 'blue',
-    margin: 50 / 2,
-  },
   container: {flex: 1, justifyContent: 'center'},
+  list: {
+    backgroundColor: '#EFEFF4',
+  },
+  separator: {
+    height: 1,
+    backgroundColor: '#DBDBE0',
+  },
+  buttonText: {
+    backgroundColor: 'transparent',
+  },
+  button: {
+    flex: 1,
+    height: 60,
+    padding: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
 });
 
 export default App;
