@@ -1,28 +1,91 @@
-import { GoatPlayers } from './types'
+import {GoatPlayers} from './types';
 
-export const players: GoatPlayers[] = [
+export const players: {title: string; values: GoatPlayers[]}[] = [
   {
-    age: 32,
-    name: 'Lebron James',
+    title: 'accordion 1',
+    values: [
+      {
+        age: 32,
+        name: 'Lebron James',
+      },
+      {
+        age: 34,
+        name: 'Cristiano Ronaldo',
+      },
+      {
+        age: 32,
+        name: 'Lionel Messi',
+      },
+      {
+        age: 51,
+        name: 'Michael Jordan',
+      },
+      {
+        age: 32,
+        name: 'Rafael Nadal',
+      },
+      {
+        age: 41,
+        name: 'Roger Federer',
+      },
+    ],
   },
   {
-    age: 34,
-    name: 'Cristiano Ronaldo',
+    title: 'acordion 2',
+    values: [
+      {
+        age: 32,
+        name: 'Lebron James',
+      },
+      {
+        age: 34,
+        name: 'Cristiano Ronaldo',
+      },
+      {
+        age: 32,
+        name: 'Lionel Messi',
+      },
+      {
+        age: 51,
+        name: 'Michael Jordan',
+      },
+      {
+        age: 32,
+        name: 'Rafael Nadal',
+      },
+      {
+        age: 41,
+        name: 'Roger Federer',
+      },
+    ],
   },
   {
-    age: 32,
-    name: 'Lionel Messi',
+    title: 'acordion 3',
+    values: [
+      {
+        age: 32,
+        name: 'Lebron James',
+      },
+      {
+        age: 34,
+        name: 'Cristiano Ronaldo',
+      },
+      {
+        age: 32,
+        name: 'Lionel Messi',
+      },
+      {
+        age: 51,
+        name: 'Michael Jordan',
+      },
+      {
+        age: 32,
+        name: 'Rafael Nadal',
+      },
+      {
+        age: 41,
+        name: 'Roger Federer',
+      },
+    ],
   },
-  {
-    age: 51,
-    name: 'Michael Jordan',
-  },
-  {
-    age: 32,
-    name: 'Rafael Nadal',
-  },
-  {
-    age: 41,
-    name: 'Roger Federer',
-  },
-]
+];

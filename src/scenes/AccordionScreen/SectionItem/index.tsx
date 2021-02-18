@@ -1,21 +1,21 @@
-import React, { useMemo } from 'react'
-import { Text, View } from 'react-native'
+import React, {useMemo} from 'react';
+import {Text, View} from 'react-native';
 
-import { GoatPlayers } from '../types'
-import { styles } from './styles'
+import {GoatPlayers} from '../types';
+import {styles} from './styles';
 
 interface LayoutProps extends GoatPlayers {
-  isLast: boolean
+  isLast: boolean;
 }
 
-export const AccordionItem: React.FC<LayoutProps> = ({ name, age, isLast }) => {
+export const SectionItem: React.FC<LayoutProps> = ({name, age, isLast}) => {
   const borderStyle = useMemo(
     () => ({
       borderBottomLeftRadius: isLast ? 10 : 0,
       borderBottomRightRadius: isLast ? 10 : 0,
     }),
     [isLast],
-  )
+  );
   return (
     <View style={[styles.container, borderStyle]}>
       <View style={styles.nameContainer}>
@@ -25,5 +25,5 @@ export const AccordionItem: React.FC<LayoutProps> = ({ name, age, isLast }) => {
         <Text>{age}</Text>
       </View>
     </View>
-  )
-}
+  );
+};
