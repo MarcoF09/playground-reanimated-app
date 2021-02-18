@@ -5,6 +5,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import {HomeScreen} from './src/scenes/HomeScreen';
 import {MainScreen} from './src/scenes/MainScreen';
 import {TransitionScreen} from './src/scenes/Transitions';
+import {AccordionScreen} from './src/scenes/AccordionScreen';
 
 export const SCREENS = {
   Home: {
@@ -14,6 +15,10 @@ export const SCREENS = {
   Transition: {
     screen: TransitionScreen,
     title: '🆕 Transition',
+  },
+  Accordion: {
+    screen: AccordionScreen,
+    title: '🆕 Accordion',
   },
 };
 
@@ -26,6 +31,7 @@ const App = () => {
         <Stack.Screen name="Main" component={MainScreen} />
         <Stack.Screen name="Home" component={HomeScreen} />
         <Stack.Screen name="Transition" component={TransitionScreen} />
+        <Stack.Screen name="Accordion" component={AccordionScreen} />
       </Stack.Navigator>
     </NavigationContainer>
   );
