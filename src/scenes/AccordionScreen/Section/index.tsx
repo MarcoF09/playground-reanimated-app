@@ -48,16 +48,13 @@ export const Section: React.FC<indexProps> = ({
 
     console.log({sectionIndex});
 
-    updatedSections = activeSections.map((value, index) =>
-      index === sectionIndex ? (isActive ? 0 : 1) : value,
+  const toggleSection = useCallback(() => {
+    const updatedSections = activeSections.map((value, index) =>
+      index === sectionIndex ? (!!isActive ? 0 : 1) : value,
     );
 
     onChange(updatedSections);
-  }, []);
-
-  const onPress = useCallback(() => {
-    toggleSection(!!isActive);
-  }, [isActive]);
+  }, [activeSections, isActive]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     height: heightAnimated.value,
@@ -75,13 +72,13 @@ export const Section: React.FC<indexProps> = ({
         renderHeader
       ) : (
         <SectionHeader
-          onPress={onPress}
+          onPress={toggleSection}
           animatedBorder={animatedBorder}
           animatedHeight={heightAnimated}
           section={section}
         />
       )}
-      <Animated.View style={animatedStyle} ref={itemRef}>
+      <Animated.View style={animatedStyle}>
         {section.values.map((item, index) => {
           const isLast = index === section.values.length - 1;
           return !!renderItem ? (

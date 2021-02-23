@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useCallback, useState} from 'react';
 import {FlatList, View} from 'react-native';
 import {Accordion} from './Accordion';
 import {SectionItem} from './SectionItem';
@@ -9,16 +9,16 @@ import {SectionHeader} from './SectionHeader';
 
 export const AccordionScreen: React.FC<{}> = () => {
   const [activeSections, setActiveSections] = useState<number[]>([1, 0, 0]);
+  const onChange = useCallback((indexes: number[]) => {
+    setActiveSections(indexes);
+  }, []);
+
   return (
     <View style={styles.container}>
       <Accordion
         sections={players}
         activeSections={activeSections}
-        onChange={(indexes) => {
-          console.log({indexes, activeSections});
-
-          setActiveSections(indexes);
-        }}
+        onChange={onChange}
         // renderItem={(
         //   content: GoatPlayers,
         //   isLast: boolean,
