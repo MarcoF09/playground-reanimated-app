@@ -51,7 +51,7 @@ export interface AccordionProps<T> {
   /**
    * A function that is called when the currently active section(s) are updated.
    */
-  //   onChange(indexes: number[]): void;
+  onChange(indexes: number[]): void;
 
   /**
    * Controls whether user can interact with accordion

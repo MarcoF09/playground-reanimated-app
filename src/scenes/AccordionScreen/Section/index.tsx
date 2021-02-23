@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import Animated, {
   useAnimatedStyle,
@@ -8,11 +8,17 @@ import Animated, {
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
 import {GoatPlayers, ITEM_HEIGHT} from '../types';
+import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
 
 interface indexProps {
   section: {title: string; values: GoatPlayers[]};
   renderItem: any;
   renderHeader: any;
+  isActive: number;
+  sections: {title: string; values: GoatPlayers[]}[];
+  onChange: (indexes: number[]) => void;
+  sectionIndex: number;
+  activeSections: number[];
 }
 
 const styles = StyleSheet.create({
@@ -23,17 +29,35 @@ const styles = StyleSheet.create({
   },
 });
 
-export const Section: React.FC<indexProps> = ({section, renderItem}) => {
-  const heightAnimated = useSharedValue(0);
+export const Section: React.FC<indexProps> = ({
+  section,
+  renderItem,
+  renderHeader,
+  sections,
+  isActive,
+  sectionIndex,
+  activeSections,
+  onChange,
+}) => {
+  const itemRef = useRef<Animated.View>();
+
+  const {heightAnimated} = useHandleSectionHeight(itemRef, section, isActive);
+
+  const toggleSection = useCallback((isActive: boolean) => {
+    let updatedSections = activeSections.slice();
+
+    console.log({sectionIndex});
+
+    updatedSections = activeSections.map((value, index) =>
+      index === sectionIndex ? (isActive ? 0 : 1) : value,
+    );
+
+    onChange(updatedSections);
+  }, []);
 
   const onPress = useCallback(() => {
-    heightAnimated.value = withTiming(
-      heightAnimated.value === 0 ? ITEM_HEIGHT * section.values.length : 0,
-      {
-        duration: 400,
-      },
-    );
-  }, [heightAnimated]);
+    toggleSection(!!isActive);
+  }, [isActive]);
 
   const animatedStyle = useAnimatedStyle(() => ({
     height: heightAnimated.value,
@@ -47,17 +71,21 @@ export const Section: React.FC<indexProps> = ({section, renderItem}) => {
 
   return (
     <View style={{paddingVertical: 5}}>
-      <SectionHeader
-        onPress={onPress}
-        animatedBorder={animatedBorder}
-        animatedHeight={heightAnimated}
-        section={section}
-      />
-      <Animated.View style={animatedStyle}>
+      {!!renderHeader ? (
+        renderHeader
+      ) : (
+        <SectionHeader
+          onPress={onPress}
+          animatedBorder={animatedBorder}
+          animatedHeight={heightAnimated}
+          section={section}
+        />
+      )}
+      <Animated.View style={animatedStyle} ref={itemRef}>
         {section.values.map((item, index) => {
           const isLast = index === section.values.length - 1;
           return !!renderItem ? (
-            renderItem(item, isLast)
+            renderItem(item, isLast, index, undefined, sections)
           ) : (
             <SectionItem {...item} isLast={isLast} />
           );

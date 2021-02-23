@@ -14,16 +14,22 @@ export const Accordion: React.FC<AccordionProps<{
   renderItem: renderSectionItem,
   renderFooter,
   renderTitle,
+  onChange,
 }) => (
   <FlatList
     data={sections}
-    renderItem={({item}) => (
+    renderItem={({item, index}) => (
       <Section
         section={item}
         renderItem={renderSectionItem}
         renderHeader={renderHeader}
+        isActive={activeSections[index]}
+        sections={sections}
+        onChange={onChange}
+        sectionIndex={index}
+        activeSections={activeSections}
       />
     )}
-    keyExtractor={() => ''}
+    keyExtractor={(value, index) => `${index}-${value.title}`}
   />
 );
