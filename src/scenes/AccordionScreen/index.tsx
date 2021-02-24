@@ -1,5 +1,5 @@
 import React, {useCallback, useState} from 'react';
-import {View} from 'react-native';
+import {Text, View} from 'react-native';
 import {Accordion} from './Accordion';
 import {players} from './goatPlayers';
 import {styles} from './styles';
@@ -17,30 +17,17 @@ export const AccordionScreen: React.FC<{}> = () => {
         activeSections={activeSections}
         onChange={onChange}
         // renderItem={(
-        //   content: GoatPlayers,
+        //   content: any,
         //   index: number,
         //   isActive: boolean,
-        //   sections: {title: string; values: GoatPlayers[]}[],
-        // ) => (
-        //   <FlatList
-        //     data={players[index].values}
-        //     renderItem={({item, index}) => (
-        //       <SectionItem
-        //         {...item}
-        //         isLast={index === players[index].values.length - 1}
-        //       />
-        //     )}
-        //     keyExtractor={(_item, index) => `${index}`}
-        //     onLayout={({nativeEvent}) => {
-        //     }}
-        //   />
-        // )}
+        //   sections: any[],
+        // ) => <Text>{'hola body'}</Text>}
         // renderHeader={(
-        //   content: {title: string; values: GoatPlayers[]},
+        //   content: any,
         //   index: number,
         //   isActive: boolean,
-        //   sections: {title: string; values: GoatPlayers[]}[],
-        // ) => <SectionHeader />}
+        //   sections: any[],
+        // ) => <Text>hola title</Text>}
       />
     </View>
   );
