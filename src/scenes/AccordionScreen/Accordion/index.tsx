@@ -1,13 +1,9 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {GoatPlayers} from '../types';
 import {AccordionProps} from './types';
 import {Section} from '../Section';
 
-export const Accordion: React.FC<AccordionProps<{
-  title: string;
-  values: GoatPlayers[];
-}>> = ({
+export const Accordion: React.FC<AccordionProps<any>> = ({
   activeSections,
   sections,
   renderHeader,
@@ -18,6 +14,8 @@ export const Accordion: React.FC<AccordionProps<{
 }) => (
   <FlatList
     data={sections}
+    ListHeaderComponent={renderTitle && renderTitle()}
+    ListFooterComponent={renderFooter && renderFooter()}
     renderItem={({item, index}) => (
       <Section
         section={item}

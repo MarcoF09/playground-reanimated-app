@@ -1,6 +1,7 @@
 import * as React from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
 // import {EasingMode} from './index';
+
+export const DEFAULT_ITEM_HEIGHT = 50;
 
 export interface AccordionProps<T> {
   /**
@@ -21,22 +22,12 @@ export interface AccordionProps<T> {
   /**
    * A function that should return a renderable representing the footer
    */
-  renderFooter?(
-    content: T,
-    index: number,
-    isActive: boolean,
-    sections: T[],
-  ): React.ReactElement<{}>;
+  renderFooter?(): React.ReactElement<{}>;
 
   /**
    * A function that should return a renderable representing the section title above the touchable
    */
-  renderTitle?(
-    content: T,
-    index: number,
-    isActive: boolean,
-    sections: T[],
-  ): React.ReactElement<{}>;
+  renderTitle?(): React.ReactElement<{}>;
 
   /**
    * A function that should return a renderable representing the content

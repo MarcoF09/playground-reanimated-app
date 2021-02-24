@@ -8,7 +8,8 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import Svg, {Circle, Path} from 'react-native-svg';
-import {GoatPlayers, ITEM_HEIGHT} from '../types';
+import {DEFAULT_ITEM_HEIGHT} from '../Accordion/types';
+import {GoatPlayers} from '../types';
 import {styles} from './styles';
 
 interface LayoutProps {
@@ -29,7 +30,7 @@ export const SectionHeader: React.FC<LayoutProps> = ({
   const props = useAnimatedProps(() => ({
     fill: interpolateColor(
       animatedHeight.value,
-      [0, ITEM_HEIGHT * section.values.length],
+      [0, DEFAULT_ITEM_HEIGHT * section.values.length],
       ['rgb(229,32,32)', 'rgb(49,128,22)'],
     ),
   }));
@@ -37,7 +38,7 @@ export const SectionHeader: React.FC<LayoutProps> = ({
   const style = useAnimatedStyle(() => {
     const rotateZ = interpolate(
       animatedHeight.value,
-      [0, ITEM_HEIGHT * section.values.length],
+      [0, DEFAULT_ITEM_HEIGHT * section.values.length],
       [0, Math.PI],
     );
     return {

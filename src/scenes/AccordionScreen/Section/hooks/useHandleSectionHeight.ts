@@ -1,9 +1,9 @@
 import {useCallback, useEffect} from 'react';
 import {useSharedValue, withTiming} from 'react-native-reanimated';
-import {GoatPlayers, ITEM_HEIGHT} from '../../types';
+import {DEFAULT_ITEM_HEIGHT} from '../../Accordion/types';
 
 export const useHandleSectionHeight = (
-  section: {title: string; values: GoatPlayers[]},
+  section: any,
   isActive: number,
   height: number,
 ) => {
@@ -21,7 +21,7 @@ export const useHandleSectionHeight = (
   const measureItem = useCallback(
     (callback) => {
       if (height === 0) {
-        callback(ITEM_HEIGHT * section.values.length);
+        callback(DEFAULT_ITEM_HEIGHT * section.values.length);
       } else {
         callback(height);
       }

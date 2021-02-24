@@ -1,13 +1,12 @@
-import { StyleSheet } from 'react-native'
-
-import { ITEM_HEIGHT } from '../types'
+import {StyleSheet} from 'react-native';
+import {DEFAULT_ITEM_HEIGHT} from '../Accordion/types';
 
 export const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     backgroundColor: 'white',
     flexDirection: 'row',
-    height: ITEM_HEIGHT,
+    height: DEFAULT_ITEM_HEIGHT,
     paddingHorizontal: 20,
   },
   labelContainer: {
@@ -18,4 +17,4 @@ export const styles = StyleSheet.create({
   nameContainer: {
     flex: 5,
   },
-})
+});

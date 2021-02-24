@@ -3,21 +3,20 @@ import {View, FlatList} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
-import {GoatPlayers} from '../types';
 import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
 
-interface indexProps {
-  section: {title: string; values: GoatPlayers[]};
+interface IndexProps<T> {
+  section: T;
   renderItem: any;
   renderHeader: any;
   isActive: number;
-  sections: {title: string; values: GoatPlayers[]}[];
+  sections: T[];
   onChange: (indexes: number[]) => void;
   sectionIndex: number;
   activeSections: number[];
 }
 
-export const Section: React.FC<indexProps> = ({
+export const Section: React.FC<IndexProps<any>> = ({
   section,
   renderItem,
   renderHeader,
