@@ -1,13 +1,9 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
+import React, {useCallback, useState} from 'react';
+import {View, FlatList} from 'react-native';
+import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
-import {GoatPlayers, ITEM_HEIGHT} from '../types';
+import {GoatPlayers} from '../types';
 import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
 
 interface indexProps {
@@ -21,14 +17,6 @@ interface indexProps {
   activeSections: number[];
 }
 
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
-
 export const Section: React.FC<indexProps> = ({
   section,
   renderItem,
@@ -39,17 +27,8 @@ export const Section: React.FC<indexProps> = ({
   activeSections,
   onChange,
 }) => {
-  const contentRef = useRef<View>(null);
-  const [minHeight, setMinHeight] = useState<number>(0);
-  const [maxHeight, setMaxHeight] = useState<number>(0);
-
-  const {heightAnimated} = useHandleSectionHeight(
-    contentRef,
-    section,
-    isActive,
-    maxHeight,
-    minHeight,
-  );
+  const [onLayoutEnd, setOnLayoutEnd] = useState<boolean>(false);
+  const [height, setHeight] = useState<number>(0);
 
   const toggleSection = useCallback(() => {
     const updatedSections = activeSections.map((value, index) =>
@@ -59,8 +38,10 @@ export const Section: React.FC<indexProps> = ({
     onChange(updatedSections);
   }, [activeSections, isActive]);
 
+  const {heightAnimated} = useHandleSectionHeight(section, isActive, height);
+
   const animatedViewStyle = useAnimatedStyle(() => ({
-    height: heightAnimated.value,
+    height: !onLayoutEnd ? undefined : heightAnimated.value,
     overflow: 'hidden',
   }));
 
@@ -71,27 +52,24 @@ export const Section: React.FC<indexProps> = ({
 
   return (
     <View>
-      <View
-        onLayout={(event) => {
-          console.log({eventHeight: event.nativeEvent.layout.height});
-          setMinHeight(event.nativeEvent.layout.height);
-        }}>
-        {!!renderHeader ? (
-          renderHeader
-        ) : (
-          <SectionHeader
-            onPress={toggleSection}
-            animatedBorder={animatedBorder}
-            animatedHeight={heightAnimated}
-            section={section}
-          />
-        )}
-      </View>
+      {!!renderHeader ? (
+        renderHeader
+      ) : (
+        <SectionHeader
+          onPress={toggleSection}
+          animatedBorder={animatedBorder}
+          animatedHeight={heightAnimated}
+          section={section}
+        />
+      )}
       <Animated.View
         style={animatedViewStyle}
-        onLayout={(event) => setMaxHeight(event.nativeEvent.layout.height)}
-        ref={contentRef}>
-        {/* <Animated.View style={animatedContentStyle}> */}
+        onLayout={(event) => {
+          if (event.nativeEvent.layout.height && !onLayoutEnd) {
+            setHeight(event.nativeEvent.layout.height);
+            setOnLayoutEnd(true);
+          }
+        }}>
         <FlatList
           data={section.values}
           renderItem={
@@ -113,7 +91,6 @@ export const Section: React.FC<indexProps> = ({
           }
           keyExtractor={(_item, index) => `${index}`}
         />
-        {/* </Animated.View> */}
       </Animated.View>
     </View>
   );
