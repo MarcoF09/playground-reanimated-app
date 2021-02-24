@@ -1,6 +1,5 @@
 import React, {useMemo} from 'react';
 import {Text, View} from 'react-native';
-
 import {GoatPlayers} from '../types';
 import {styles} from './styles';
 

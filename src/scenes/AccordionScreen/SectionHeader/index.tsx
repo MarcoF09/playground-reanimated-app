@@ -8,8 +8,6 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated';
 import Svg, {Circle, Path} from 'react-native-svg';
-
-import {players} from '../goatPlayers';
 import {GoatPlayers, ITEM_HEIGHT} from '../types';
 import {styles} from './styles';
 
