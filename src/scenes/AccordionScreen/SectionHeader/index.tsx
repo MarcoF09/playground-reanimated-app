@@ -17,6 +17,14 @@ interface LayoutProps {
   animatedBorder: StyleProp<ViewStyle>;
   animatedHeight: Animated.SharedValue<number>;
   section: {title: string; values: GoatPlayers[]};
+  renderHeader(
+    content: any,
+    isActive: boolean,
+    sections: any[],
+  ): React.ReactElement<{}>;
+  isActive: boolean;
+  sections: any[];
+  height: number;
 }
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
@@ -26,11 +34,15 @@ export const SectionHeader: React.FC<LayoutProps> = ({
   animatedBorder,
   animatedHeight,
   section,
+  renderHeader,
+  isActive,
+  sections,
+  height,
 }) => {
   const props = useAnimatedProps(() => ({
     fill: interpolateColor(
       animatedHeight.value,
-      [0, DEFAULT_ITEM_HEIGHT * section.values.length],
+      [0, height ?? DEFAULT_ITEM_HEIGHT * section.values.length],
       ['rgb(229,32,32)', 'rgb(49,128,22)'],
     ),
   }));
@@ -38,7 +50,7 @@ export const SectionHeader: React.FC<LayoutProps> = ({
   const style = useAnimatedStyle(() => {
     const rotateZ = interpolate(
       animatedHeight.value,
-      [0, DEFAULT_ITEM_HEIGHT * section.values.length],
+      [0, height ?? DEFAULT_ITEM_HEIGHT * section.values.length],
       [0, Math.PI],
     );
     return {
@@ -49,9 +61,14 @@ export const SectionHeader: React.FC<LayoutProps> = ({
   return (
     <TouchableWithoutFeedback onPress={onPress}>
       <Animated.View style={[styles.container, animatedBorder]}>
-        <View style={styles.title}>
-          <Text>{section.title}</Text>
-        </View>
+        {renderHeader ? (
+          renderHeader(section, isActive, sections)
+        ) : (
+          <View style={styles.title}>
+            <Text>{section.title}</Text>
+          </View>
+        )}
+
         <Animated.View style={[styles.iconContainer, style]}>
           <Svg width="24" height="24" viewBox="0 0 24 24" fill="none">
             <AnimatedCircle cx="12" cy="12" r="12" animatedProps={props} />

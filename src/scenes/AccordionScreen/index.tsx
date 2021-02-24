@@ -16,12 +16,12 @@ export const AccordionScreen: React.FC<{}> = () => {
         sections={players}
         activeSections={activeSections}
         onChange={onChange}
-        // renderItem={(
-        //   content: any,
-        //   index: number,
-        //   isActive: boolean,
-        //   sections: any[],
-        // ) => <Text>{'hola body'}</Text>}
+        renderItem={(
+          content: any,
+          index: number,
+          isActive: boolean,
+          sections: any[],
+        ) => <Text>{'hola body'}</Text>}
         // renderHeader={(
         //   content: any,
         //   index: number,

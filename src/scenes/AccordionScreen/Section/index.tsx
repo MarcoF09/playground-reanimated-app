@@ -51,16 +51,16 @@ export const Section: React.FC<IndexProps<any>> = ({
 
   return (
     <View>
-      {!!renderHeader ? (
-        renderHeader
-      ) : (
-        <SectionHeader
-          onPress={toggleSection}
-          animatedBorder={animatedBorder}
-          animatedHeight={heightAnimated}
-          section={section}
-        />
-      )}
+      <SectionHeader
+        onPress={toggleSection}
+        animatedBorder={animatedBorder}
+        animatedHeight={heightAnimated}
+        height={height}
+        section={section}
+        renderHeader={renderHeader}
+        isActive={isActive === 1}
+        sections={sections}
+      />
       <Animated.View
         style={animatedViewStyle}
         onLayout={(event) => {

@@ -14,7 +14,6 @@ export interface AccordionProps<T> {
    */
   renderHeader(
     content: T,
-    index: number,
     isActive: boolean,
     sections: T[],
   ): React.ReactElement<{}>;

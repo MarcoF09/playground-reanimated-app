@@ -20,11 +20,7 @@ export const useHandleSectionHeight = (
 
   const measureItem = useCallback(
     (callback) => {
-      if (height === 0) {
-        callback(DEFAULT_ITEM_HEIGHT * section.values.length);
-      } else {
-        callback(height);
-      }
+      callback(height);
     },
     [height],
   );
