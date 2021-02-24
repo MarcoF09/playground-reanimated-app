@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {Text, View} from 'react-native';
 import {Accordion} from './Accordion';
+import {IconType} from './Accordion/types';
 import {players} from './goatPlayers';
 import {styles} from './styles';
 
@@ -28,6 +29,7 @@ export const AccordionScreen: React.FC<{}> = () => {
         //   isActive: boolean,
         //   sections: any[],
         // ) => <Text>hola title</Text>}
+        iconType={IconType.ARROW}
       />
     </View>
   );

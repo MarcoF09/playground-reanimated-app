@@ -11,6 +11,7 @@ export const Accordion: React.FC<AccordionProps<any>> = ({
   renderFooter,
   renderTitle,
   onChange,
+  iconType,
 }) => (
   <FlatList
     data={sections}
@@ -26,6 +27,7 @@ export const Accordion: React.FC<AccordionProps<any>> = ({
         onChange={onChange}
         sectionIndex={index}
         activeSections={activeSections}
+        iconType={iconType}
       />
     )}
     keyExtractor={(value, index) => `${index}-${value.title}`}

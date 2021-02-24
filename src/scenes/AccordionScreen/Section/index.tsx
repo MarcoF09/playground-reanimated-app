@@ -1,6 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {View, FlatList} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
+import {IconType} from '../Accordion/types';
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
 import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
@@ -14,6 +15,7 @@ interface IndexProps<T> {
   onChange: (indexes: number[]) => void;
   sectionIndex: number;
   activeSections: number[];
+  iconType?: IconType;
 }
 
 export const Section: React.FC<IndexProps<any>> = ({
@@ -25,6 +27,7 @@ export const Section: React.FC<IndexProps<any>> = ({
   sectionIndex,
   activeSections,
   onChange,
+  iconType,
 }) => {
   const [onLayoutEnd, setOnLayoutEnd] = useState<boolean>(false);
   const [height, setHeight] = useState<number>(0);
@@ -60,6 +63,7 @@ export const Section: React.FC<IndexProps<any>> = ({
         renderHeader={renderHeader}
         isActive={isActive === 1}
         sections={sections}
+        iconType={iconType}
       />
       <Animated.View
         style={animatedViewStyle}

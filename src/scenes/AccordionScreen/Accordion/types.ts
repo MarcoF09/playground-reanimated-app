@@ -43,6 +43,8 @@ export interface AccordionProps<T> {
    */
   onChange(indexes: number[]): void;
 
+  iconType?: IconType;
+
   /**
    * Controls whether user can interact with accordion
    */
@@ -116,6 +118,11 @@ export interface AccordionProps<T> {
    * Optional styling for the Accordion container
    */
   //   containerStyle?: StyleProp<ViewStyle>;
+}
+
+export enum IconType {
+  ARROW = 'ARROW',
+  HAMBURGER = 'HAMBURGER',
 }
 
 // export default class Accordion<T> extends React.Component<AccordionProps<T>> {}

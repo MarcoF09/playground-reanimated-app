@@ -10,12 +10,6 @@ export const styles = StyleSheet.create({
     marginTop: 10,
     paddingHorizontal: 20,
   },
-  iconContainer: {
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-    flex: 1,
-    justifyContent: 'center',
-  },
   title: {
     flex: 5,
     justifyContent: 'center',
