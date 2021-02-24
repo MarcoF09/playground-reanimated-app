@@ -21,11 +21,24 @@ export const AccordionScreen: React.FC<{}> = () => {
         onChange={onChange}
         // renderItem={(
         //   content: GoatPlayers,
-        //   isLast: boolean,
         //   index: number,
         //   isActive: boolean,
         //   sections: {title: string; values: GoatPlayers[]}[],
-        // ) => <SectionItem {...content} isLast={isLast} />}
+        // ) => (
+        //   <FlatList
+        //     data={players[index].values}
+        //     renderItem={({item, index}) => (
+        //       <SectionItem
+        //         {...item}
+        //         isLast={index === players[index].values.length - 1}
+        //       />
+        //     )}
+        //     keyExtractor={(_item, index) => `${index}`}
+        //     onLayout={({nativeEvent}) => {
+        //       console.log(nativeEvent.layout);
+        //     }}
+        //   />
+        // )}
         // renderHeader={(
         //   content: {title: string; values: GoatPlayers[]},
         //   index: number,

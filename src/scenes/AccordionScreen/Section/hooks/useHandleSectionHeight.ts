@@ -1,12 +1,14 @@
 import {useCallback, useEffect, useRef, useState} from 'react';
-import {View} from 'react-native';
-import {useSharedValue, withTiming} from 'react-native-reanimated';
+import {FlatList, View} from 'react-native';
+import Animated, {useSharedValue, withTiming} from 'react-native-reanimated';
 import {GoatPlayers, ITEM_HEIGHT} from '../../types';
 
 export const useHandleSectionHeight = (
-  itemRef: React.RefObject<View>,
+  contentRef: React.RefObject<View>,
   section: {title: string; values: GoatPlayers[]},
   isActive: number,
+  maxHeight: number,
+  minHeight: number,
 ) => {
   const [measured, setMeasured] = useState(false);
   const [measuring, setMeasuring] = useState(false);
@@ -21,23 +23,22 @@ export const useHandleSectionHeight = (
     [heightAnimated],
   );
 
-  const measureItem = useCallback((callback) => {
-    setMeasuring(true);
-    requestAnimationFrame(() => {
-      if (!itemRef) {
+  const measureItem = useCallback(
+    (callback) => {
+      setMeasuring(true);
+
+      if (!contentRef) {
         setMeasuring(false);
         callback(ITEM_HEIGHT * section.values.length);
       } else {
-        itemRef.current?.measure((_x, _y, _width, height) => {
-          // console.log({height});
-          setMeasured(true);
-          setMeasuring(false);
-          //This should be something like this: callback(height * section.values.length);
-          callback(ITEM_HEIGHT * section.values.length);
+        console.log('measure type: ', typeof contentRef.current?.measure);
+        contentRef.current?.measure((_x, _y, _width, height) => {
+          console.log({height});
         });
       }
-    });
-  }, []);
+    },
+    [contentRef],
+  );
 
   useEffect(() => {
     setMeasured(false);
@@ -47,7 +48,7 @@ export const useHandleSectionHeight = (
       handleHeigth(0);
     }
     return () => {};
-  }, [isActive]);
+  }, [isActive, contentRef]);
 
   return {
     heightAnimated,

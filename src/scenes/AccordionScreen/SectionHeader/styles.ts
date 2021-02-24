@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     borderTopRightRadius: 10,
     flexDirection: 'row',
     height: 60,
+    marginTop: 10,
     paddingHorizontal: 20,
   },
   iconContainer: {

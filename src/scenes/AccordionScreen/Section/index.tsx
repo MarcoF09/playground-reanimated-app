@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useRef, useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, FlatList} from 'react-native';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -39,14 +39,17 @@ export const Section: React.FC<indexProps> = ({
   activeSections,
   onChange,
 }) => {
-  const itemRef = useRef<Animated.View>();
+  const contentRef = useRef<View>(null);
+  const [minHeight, setMinHeight] = useState<number>(0);
+  const [maxHeight, setMaxHeight] = useState<number>(0);
 
-  const {heightAnimated} = useHandleSectionHeight(itemRef, section, isActive);
-
-  const toggleSection = useCallback((isActive: boolean) => {
-    let updatedSections = activeSections.slice();
-
-    console.log({sectionIndex});
+  const {heightAnimated} = useHandleSectionHeight(
+    contentRef,
+    section,
+    isActive,
+    maxHeight,
+    minHeight,
+  );
 
   const toggleSection = useCallback(() => {
     const updatedSections = activeSections.map((value, index) =>
@@ -56,7 +59,7 @@ export const Section: React.FC<indexProps> = ({
     onChange(updatedSections);
   }, [activeSections, isActive]);
 
-  const animatedStyle = useAnimatedStyle(() => ({
+  const animatedViewStyle = useAnimatedStyle(() => ({
     height: heightAnimated.value,
     overflow: 'hidden',
   }));
@@ -67,26 +70,50 @@ export const Section: React.FC<indexProps> = ({
   }));
 
   return (
-    <View style={{paddingVertical: 5}}>
-      {!!renderHeader ? (
-        renderHeader
-      ) : (
-        <SectionHeader
-          onPress={toggleSection}
-          animatedBorder={animatedBorder}
-          animatedHeight={heightAnimated}
-          section={section}
+    <View>
+      <View
+        onLayout={(event) => {
+          console.log({eventHeight: event.nativeEvent.layout.height});
+          setMinHeight(event.nativeEvent.layout.height);
+        }}>
+        {!!renderHeader ? (
+          renderHeader
+        ) : (
+          <SectionHeader
+            onPress={toggleSection}
+            animatedBorder={animatedBorder}
+            animatedHeight={heightAnimated}
+            section={section}
+          />
+        )}
+      </View>
+      <Animated.View
+        style={animatedViewStyle}
+        onLayout={(event) => setMaxHeight(event.nativeEvent.layout.height)}
+        ref={contentRef}>
+        {/* <Animated.View style={animatedContentStyle}> */}
+        <FlatList
+          data={section.values}
+          renderItem={
+            !!renderItem
+              ? ({item, index}) =>
+                  renderItem(
+                    item,
+                    index === section.values.length - 1,
+                    index,
+                    undefined,
+                    sections,
+                  )
+              : ({item, index}) => (
+                  <SectionItem
+                    {...item}
+                    isLast={index === section.values.length - 1}
+                  />
+                )
+          }
+          keyExtractor={(_item, index) => `${index}`}
         />
-      )}
-      <Animated.View style={animatedStyle}>
-        {section.values.map((item, index) => {
-          const isLast = index === section.values.length - 1;
-          return !!renderItem ? (
-            renderItem(item, isLast, index, undefined, sections)
-          ) : (
-            <SectionItem {...item} isLast={isLast} />
-          );
-        })}
+        {/* </Animated.View> */}
       </Animated.View>
     </View>
   );
