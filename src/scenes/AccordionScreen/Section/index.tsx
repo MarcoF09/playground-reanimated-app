@@ -8,7 +8,7 @@ import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
 
 interface IndexProps<T> {
   section: T;
-  renderItem: any;
+  renderContent: any;
   renderHeader: any;
   isActive: number;
   sections: T[];
@@ -20,7 +20,7 @@ interface IndexProps<T> {
 
 export const Section: React.FC<IndexProps<any>> = ({
   section,
-  renderItem,
+  renderContent,
   renderHeader,
   sections,
   isActive,
@@ -73,27 +73,20 @@ export const Section: React.FC<IndexProps<any>> = ({
             setOnLayoutEnd(true);
           }
         }}>
-        <FlatList
-          data={section.values}
-          renderItem={
-            !!renderItem
-              ? ({item, index}) =>
-                  renderItem(
-                    item,
-                    index === section.values.length - 1,
-                    index,
-                    undefined,
-                    sections,
-                  )
-              : ({item, index}) => (
-                  <SectionItem
-                    {...item}
-                    isLast={index === section.values.length - 1}
-                  />
-                )
-          }
-          keyExtractor={(_item, index) => `${index}`}
-        />
+        {!!renderContent ? (
+          renderContent(section)
+        ) : (
+          <FlatList
+            data={section.values}
+            renderItem={({item, index}) => (
+              <SectionItem
+                {...item}
+                isLast={index === section.values.length - 1}
+              />
+            )}
+            keyExtractor={(_item, index) => `${index}`}
+          />
+        )}
       </Animated.View>
     </View>
   );

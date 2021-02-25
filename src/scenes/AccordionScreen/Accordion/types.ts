@@ -31,7 +31,7 @@ export interface AccordionProps<T> {
   /**
    * A function that should return a renderable representing the content
    */
-  renderItem(
+  renderContent(
     content: T,
     index: number,
     isActive: boolean,

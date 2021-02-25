@@ -7,7 +7,7 @@ export const Accordion: React.FC<AccordionProps<any>> = ({
   activeSections,
   sections,
   renderHeader,
-  renderItem: renderSectionItem,
+  renderContent,
   renderFooter,
   renderTitle,
   onChange,
@@ -20,7 +20,7 @@ export const Accordion: React.FC<AccordionProps<any>> = ({
     renderItem={({item, index}) => (
       <Section
         section={item}
-        renderItem={renderSectionItem}
+        renderContent={renderContent}
         renderHeader={renderHeader}
         isActive={activeSections[index]}
         sections={sections}
