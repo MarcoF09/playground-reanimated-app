@@ -51,11 +51,13 @@ export const SectionHeader: React.FC<LayoutProps> = ({
             <Text>{section.title}</Text>
           </View>
         )}
-        {iconType === IconType.HAMBURGER ? (
-          <Hamburger height={height} progress={animatedHeight} />
-        ) : (
-          <Arrow height={height} progress={animatedHeight} />
-        )}
+        <View style={{flex: 1, alignItems: 'flex-end'}}>
+          {iconType === IconType.HAMBURGER ? (
+            <Hamburger height={height} progress={animatedHeight} />
+          ) : (
+            <Arrow height={height} progress={animatedHeight} />
+          )}
+        </View>
       </Animated.View>
     </TouchableWithoutFeedback>
   );

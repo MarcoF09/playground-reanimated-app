@@ -9,6 +9,7 @@ export const styles = StyleSheet.create({
     height: 60,
     marginTop: 10,
     paddingHorizontal: 20,
+    alignItems: 'center',
   },
   title: {
     flex: 5,
