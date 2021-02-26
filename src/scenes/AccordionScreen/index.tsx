@@ -24,18 +24,18 @@ export const AccordionScreen: React.FC<{}> = () => {
         //   isActive: boolean,
         //   sections: any[],
         // ) => <Text>{'hola body'}</Text>}
-        renderContent={(section: any) => (
-          <FlatList
-            data={section.values}
-            renderItem={({item, index}) => (
-              <SectionItem
-                {...item}
-                isLast={index === section.values.length - 1}
-              />
-            )}
-            keyExtractor={(_item, index) => `${index}`}
-          />
-        )}
+        // renderContent={(section: any) => (
+        //   <FlatList
+        //     data={section.values}
+        //     renderItem={({item, index}) => (
+        //       <SectionItem
+        //         {...item}
+        //         isLast={index === section.values.length - 1}
+        //       />
+        //     )}
+        //     keyExtractor={(_item, index) => `${index}`}
+        //   />
+        // )}
         //   renderHeader={(
         //     content: any,
         //     index: number,

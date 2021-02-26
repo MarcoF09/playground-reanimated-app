@@ -40,25 +40,23 @@ export const SectionHeader: React.FC<LayoutProps> = ({
   sections,
   height,
   iconType,
-}) => {
-  return (
-    <TouchableWithoutFeedback onPress={onPress}>
-      <Animated.View style={[styles.container, animatedBorder]}>
-        {renderHeader ? (
-          renderHeader(section, isActive, sections)
-        ) : (
-          <View style={styles.title}>
-            <Text>{section.title}</Text>
-          </View>
-        )}
-        <View style={{flex: 1, alignItems: 'flex-end'}}>
-          {iconType === IconType.HAMBURGER ? (
-            <Hamburger height={height} progress={animatedHeight} />
-          ) : (
-            <Arrow height={height} progress={animatedHeight} />
-          )}
+}) => (
+  <TouchableWithoutFeedback onPress={onPress}>
+    <Animated.View style={[styles.container, animatedBorder]}>
+      {renderHeader ? (
+        renderHeader(section, isActive, sections)
+      ) : (
+        <View style={styles.title}>
+          <Text>{section.title}</Text>
         </View>
-      </Animated.View>
-    </TouchableWithoutFeedback>
-  );
-};
+      )}
+      <View style={{flex: 1, alignItems: 'flex-end'}}>
+        {iconType === IconType.HAMBURGER ? (
+          <Hamburger height={height} progress={animatedHeight} />
+        ) : (
+          <Arrow height={height} progress={animatedHeight} />
+        )}
+      </View>
+    </Animated.View>
+  </TouchableWithoutFeedback>
+);

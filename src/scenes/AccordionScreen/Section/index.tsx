@@ -4,6 +4,7 @@ import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {IconType} from '../Accordion/types';
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
+import {Delay} from '../SectionItem/hooks/useAnimatedItem';
 import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
 
 interface IndexProps<T> {
@@ -42,15 +43,20 @@ export const Section: React.FC<IndexProps<any>> = ({
 
   const {heightAnimated} = useHandleSectionHeight(section, isActive, height);
 
-  const animatedViewStyle = useAnimatedStyle(() => ({
-    height: !onLayoutEnd ? undefined : heightAnimated.value,
-    overflow: 'hidden',
-  }));
+  const animatedViewStyle = useAnimatedStyle(() => {
+    console.log({heightAnimated});
+    return {
+      height: !onLayoutEnd ? undefined : heightAnimated.value,
+      overflow: 'hidden',
+    };
+  });
 
   const animatedBorder = useAnimatedStyle(() => ({
     borderBottomLeftRadius: heightAnimated.value === 0 ? 10 : 0,
     borderBottomRightRadius: heightAnimated.value === 0 ? 10 : 0,
   }));
+
+  const defaultDelay = {0: section.values.length * 50, 1: 100};
 
   return (
     <View>
@@ -78,12 +84,19 @@ export const Section: React.FC<IndexProps<any>> = ({
         ) : (
           <FlatList
             data={section.values}
-            renderItem={({item, index}) => (
-              <SectionItem
-                {...item}
-                isLast={index === section.values.length - 1}
-              />
-            )}
+            renderItem={({item, index}) => {
+              return (
+                <SectionItem
+                  {...item}
+                  isLast={index === section.values.length - 1}
+                  progress={heightAnimated}
+                  delay={{
+                    0: defaultDelay[0] - index * 50,
+                    1: defaultDelay[1] + index * 100,
+                  }}
+                />
+              );
+            }}
             keyExtractor={(_item, index) => `${index}`}
           />
         )}

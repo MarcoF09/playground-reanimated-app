@@ -17,8 +17,6 @@ interface HamburgerProps extends AnimatedIconProps {
 }
 
 export const Hamburger: React.FC<HamburgerProps> = ({progress, height}) => {
-  console.log({progress});
-
   const firstPathStyle = useAnimatedStyle(() => {
     const transformation = transformOrigin({x: -10, y: 0}, [
       {

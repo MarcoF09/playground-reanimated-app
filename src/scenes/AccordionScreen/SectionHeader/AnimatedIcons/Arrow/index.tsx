@@ -18,7 +18,6 @@ interface ArrowProps extends AnimatedIconProps {
 const AnimatedCircle = Animated.createAnimatedComponent(Circle);
 
 export const Arrow: React.FC<ArrowProps> = ({progress, height}) => {
-  console.log({progress});
   const props = useAnimatedProps(() => ({
     fill: interpolateColor(
       progress.value,
