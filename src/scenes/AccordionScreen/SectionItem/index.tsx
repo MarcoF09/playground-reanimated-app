@@ -28,7 +28,12 @@ export const SectionItem: React.FC<LayoutProps> = ({
     [isLast],
   );
   return (
-    <Animated.View style={[styles.container, borderStyle, animatedContainer]}>
+    <Animated.View
+      style={[
+        styles.container,
+        borderStyle,
+        !!delay ? animatedContainer : undefined,
+      ]}>
       <View style={styles.nameContainer}>
         <Text>{name}</Text>
       </View>

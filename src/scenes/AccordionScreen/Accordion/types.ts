@@ -43,7 +43,15 @@ export interface AccordionProps<T> {
    */
   onChange(indexes: number[]): void;
 
+  /**
+   * Controls the icon type of the section header
+   */
   iconType?: IconType;
+
+  /**
+   * Controls the icon type of the section header
+   */
+  animationType?: AnimationType;
 
   /**
    * Controls whether user can interact with accordion
@@ -123,6 +131,11 @@ export interface AccordionProps<T> {
 export enum IconType {
   ARROW = 'ARROW',
   HAMBURGER = 'HAMBURGER',
+}
+
+export enum AnimationType {
+  NORMAL = 'NORMAL',
+  STAGGERED = 'STAGGERED',
 }
 
 // export default class Accordion<T> extends React.Component<AccordionProps<T>> {}

@@ -18,14 +18,16 @@ export const useAnimatedItem = (
 ) => {
   const delayedAnimation = useSharedValue<number>(0);
 
-  useAnimatedReaction(
-    () => progress.value,
-    (value) =>
-      (delayedAnimation.value = withDelay(
-        delay[interpolate(value, [0, 300], [0, 1])],
-        withTiming(interpolate(value, [0, 300], [0, 1])),
-      )),
-  );
+  if (!!delay) {
+    useAnimatedReaction(
+      () => progress.value,
+      (value) =>
+        (delayedAnimation.value = withDelay(
+          delay[interpolate(value, [0, 300], [0, 1])],
+          withTiming(interpolate(value, [0, 300], [0, 1])),
+        )),
+    );
+  }
 
   const animatedContainer = useAnimatedStyle(() => ({
     opacity: interpolate(

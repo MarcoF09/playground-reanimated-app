@@ -1,6 +1,6 @@
 import React from 'react';
 import {FlatList} from 'react-native';
-import {AccordionProps} from './types';
+import {AccordionProps, AnimationType, IconType} from './types';
 import {Section} from '../Section';
 
 export const Accordion: React.FC<AccordionProps<any>> = ({
@@ -11,7 +11,8 @@ export const Accordion: React.FC<AccordionProps<any>> = ({
   renderFooter,
   renderTitle,
   onChange,
-  iconType,
+  iconType = IconType.ARROW,
+  animationType = AnimationType.NORMAL,
 }) => (
   <FlatList
     data={sections}
@@ -28,6 +29,7 @@ export const Accordion: React.FC<AccordionProps<any>> = ({
         sectionIndex={index}
         activeSections={activeSections}
         iconType={iconType}
+        animationType={animationType}
       />
     )}
     keyExtractor={(value, index) => `${index}-${value.title}`}

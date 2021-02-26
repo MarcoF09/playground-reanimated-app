@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {FlatList, Text, View} from 'react-native';
 import {Accordion} from './Accordion';
-import {IconType} from './Accordion/types';
+import {AnimationType, IconType} from './Accordion/types';
 import {players} from './goatPlayers';
 import {SectionItem} from './SectionItem';
 import {styles} from './styles';
@@ -18,6 +18,7 @@ export const AccordionScreen: React.FC<{}> = () => {
         sections={players}
         activeSections={activeSections}
         onChange={onChange}
+        animationType={AnimationType.STAGGERED}
         // renderItem={(
         //   content: any,
         //   index: number,

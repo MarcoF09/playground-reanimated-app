@@ -1,7 +1,7 @@
 import React, {useCallback, useState} from 'react';
 import {View, FlatList} from 'react-native';
 import Animated, {useAnimatedStyle} from 'react-native-reanimated';
-import {IconType} from '../Accordion/types';
+import {AnimationType, IconType} from '../Accordion/types';
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
 import {Delay} from '../SectionItem/hooks/useAnimatedItem';
@@ -17,6 +17,7 @@ interface IndexProps<T> {
   sectionIndex: number;
   activeSections: number[];
   iconType?: IconType;
+  animationType?: AnimationType;
 }
 
 export const Section: React.FC<IndexProps<any>> = ({
@@ -29,6 +30,7 @@ export const Section: React.FC<IndexProps<any>> = ({
   activeSections,
   onChange,
   iconType,
+  animationType,
 }) => {
   const [onLayoutEnd, setOnLayoutEnd] = useState<boolean>(false);
   const [height, setHeight] = useState<number>(0);
@@ -44,7 +46,6 @@ export const Section: React.FC<IndexProps<any>> = ({
   const {heightAnimated} = useHandleSectionHeight(section, isActive, height);
 
   const animatedViewStyle = useAnimatedStyle(() => {
-    console.log({heightAnimated});
     return {
       height: !onLayoutEnd ? undefined : heightAnimated.value,
       overflow: 'hidden',
@@ -90,10 +91,14 @@ export const Section: React.FC<IndexProps<any>> = ({
                   {...item}
                   isLast={index === section.values.length - 1}
                   progress={heightAnimated}
-                  delay={{
-                    0: defaultDelay[0] - index * 50,
-                    1: defaultDelay[1] + index * 100,
-                  }}
+                  delay={
+                    animationType === AnimationType.STAGGERED
+                      ? {
+                          0: defaultDelay[0] - index * 50,
+                          1: defaultDelay[1] + index * 100,
+                        }
+                      : undefined
+                  }
                 />
               );
             }}
