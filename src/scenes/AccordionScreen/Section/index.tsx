@@ -4,7 +4,6 @@ import Animated, {useAnimatedStyle} from 'react-native-reanimated';
 import {AnimationType, IconType} from '../Accordion/types';
 import {SectionHeader} from '../SectionHeader';
 import {SectionItem} from '../SectionItem';
-import {Delay} from '../SectionItem/hooks/useAnimatedItem';
 import {useHandleSectionHeight} from './hooks/useHandleSectionHeight';
 
 interface IndexProps<T> {
@@ -57,7 +56,7 @@ export const Section: React.FC<IndexProps<any>> = ({
     borderBottomRightRadius: heightAnimated.value === 0 ? 10 : 0,
   }));
 
-  const defaultDelay = {0: section.values.length * 50, 1: 100};
+  const defaultDelay = {0: 0, 1: 100};
 
   return (
     <View>
@@ -94,7 +93,7 @@ export const Section: React.FC<IndexProps<any>> = ({
                   delay={
                     animationType === AnimationType.STAGGERED
                       ? {
-                          0: defaultDelay[0] - index * 50,
+                          0: defaultDelay[0],
                           1: defaultDelay[1] + index * 100,
                         }
                       : undefined
